@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edgar & Leticia — Nuestra boda</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f7f3ed;
+        color: #4b4036;
+        text-align: center;
+        padding: 25px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 430px;
+        background: white;
+        border-radius: 24px;
+        padding: 40px 25px;
+        box-shadow: 0 10px 35px rgba(0,0,0,.12);
+    }
+
+    h1 {
+        font-family: Georgia, serif;
+        font-size: 32px;
+        font-weight: normal;
+        margin: 0 0 10px;
+    }
+
+    .date {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .place {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    p {
+        font-size: 17px;
+        line-height: 1.5;
+    }
+
+    .button {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        margin-top: 15px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+    }
+
+    .apple {
+        background: #222;
+        color: white;
+    }
+
+    .google {
+        background: #f1f1f1;
+        color: #333;
+    }
+
+    .note {
+        margin-top: 25px;
+        font-size: 13px;
+        color: #888;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>Edgar & Leticia</h1>
+
+    <div class="date">
+        📅 11 de octubre de 2026
+    </div>
+
+    <div class="place">
+        🕝 2:30 PM – 6:00 PM<br>
+        📍 San Antonio Ilotenango
+    </div>
+
+    <p>
+        Te esperamos 🙌
+    </p>
+
+    <a id="appleButton" class="button apple" href="#">
+        🍎 Agregar a Apple Calendar
+    </a>
+
+    <a id="googleButton" class="button google" href="#" target="_blank">
+        📅 Agregar a Google Calendar
+    </a>
+
+    <div class="note">
+        Elige la opción correspondiente a tu dispositivo.
+    </div>
+
+</div>
+
+<script>
+
+const eventTitle = "Edgar y Leticia";
+const location = "San Antonio Ilotenango";
+const description = "Te esperamos 🙌";
+
+/* Horario de Guatemala (UTC-6) */
+const start = "20261011T143000";
+const end   = "20261011T180000";
+
+/* Google Calendar */
+const googleUrl =
+"https://calendar.google.com/calendar/render?action=TEMPLATE" +
+"&text=" + encodeURIComponent(eventTitle) +
+"&dates=20261011T203000Z/20261012T000000Z" +
+"&details=" + encodeURIComponent(description) +
+"&location=" + encodeURIComponent(location);
+
+document.getElementById("googleButton").href = googleUrl;
+
+
+/* Archivo ICS para Apple Calendar */
+const ics =
+"BEGIN:VCALENDAR\r\n" +
+"VERSION:2.0\r\n" +
+"PRODID:-//Edgar y Leticia//Boda//ES\r\n" +
+"BEGIN:VEVENT\r\n" +
+"UID:edgar-leticia-boda-2026@example.com\r\n" +
+"DTSTAMP:20260814T000000Z\r\n" +
+"DTSTART;TZID=America/Guatemala:" + start + "\r\n" +
+"DTEND;TZID=America/Guatemala:" + end + "\r\n" +
+"SUMMARY:" + eventTitle + "\r\n" +
+"LOCATION:" + location + "\r\n" +
+"DESCRIPTION:" + description + "\r\n" +
+"END:VEVENT\r\n" +
+"END:VCALENDAR";
+
+const blob = new Blob([ics], {type: "text/calendar;charset=utf-8"});
+const icsUrl = URL.createObjectURL(blob);
+
+document.getElementById("appleButton").href = icsUrl;
+document.getElementById("appleButton").download = "Boda-Edgar-y-Leticia.ics";
+
+</script>
+
+</body>
+</html>
